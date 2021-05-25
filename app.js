@@ -21,6 +21,7 @@ const Comment = require("./models/Comment");
 const Threads = require("./models/Threads");
 
 const app = express();
+const port = process.env.PORT || 5000;
 
 // relation
 Product.hasMany(Cart, {
@@ -68,12 +69,19 @@ app.use('/uploads/foto_artikel', express.static(path.join(__dirname, '/uploads/f
 // view engine
 app.set("view engine", "ejs");
 
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log("Listening to port 5000");
 });
 
 // routes
-app.get("/", (req, res) => res.render("home"));
+app.get('/', (req, res) => {
+  res.status(200).json({
+      status: 200,
+      success: true,
+      data: 'Tanamart API is Already Running...'
+  });
+});
+
 
 app.use(authRoutes);
 app.use(productRoutes);
