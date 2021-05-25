@@ -118,6 +118,6 @@ dist
 .pnp.*
 
 # #ignore folder foto
-# uploads/
-# foto_toko/
-# profile_pict/
+uploads/
+foto_toko/
+profile_pict/
