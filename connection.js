@@ -4,7 +4,13 @@ require('dotenv').config({path: './.env'});
 // Koneksi db sequelize
 const conn = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
-    dialect: 'mysql',
+    dialect: 'postgres',
+    dialectOptions:{
+        ssl: {
+            require: true,
+            rejectUnauthorized: false 
+        }
+    },
     operatorAliases: false,
     pool: {
         max: 5,
