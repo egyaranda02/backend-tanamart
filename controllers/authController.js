@@ -2,7 +2,7 @@ require("dotenv").config({ path: "../.env" });
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-const maxAge = 60 * 60 * 5;
+const maxSes = 60 * 60 * 5;
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.SECRET_KEY, {
@@ -54,6 +54,7 @@ module.exports.login_post = async (req, res) => {
       var comparison = bcrypt.compareSync(req.body.password, user.password);
       if (comparison) {
         const token = createToken(user.id_user);
+        res.cookie("jwt", "token", { maxAge: maxSes });
         res.status(201).json({
           user: user.id_user,
           email: user.email,
