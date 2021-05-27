@@ -60,7 +60,7 @@ app.use(cookieParser());
 app.use(express.static("public"));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({credentials: true, origin: 'https://tanamart.herokuapp.com/'}));
+app.use(cors({credentials: true, origin: '*'}));
 app.use('/uploads/foto_barang', express.static(path.join(__dirname, '/uploads/foto_barang')));
 app.use('/uploads/profile_pict', express.static(path.join(__dirname, '/uploads/profile_pict')));
 app.use('/uploads/foto_toko', express.static(path.join(__dirname, '/uploads/foto_toko')));
