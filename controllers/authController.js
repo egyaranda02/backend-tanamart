@@ -54,7 +54,7 @@ module.exports.login_post = async (req, res) => {
       var comparison = bcrypt.compareSync(req.body.password, user.password);
       if (comparison) {
         const token = createToken(user.id_user);
-        res.cookie("jwt", token, {maxAge: 60 * 60 * 5 });
+        res.cookie("jwt", token, {maxAge: 60 * 60 * 60 * 5 * 1000, httpOnly: true});
         res.status(201).json({
           user: user.id_user,
           email: user.email,
