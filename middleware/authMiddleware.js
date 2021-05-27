@@ -20,6 +20,7 @@ const requireAuth = (req, res, next)=>{
 
 const checkAdmin = (req, res, next)=>{
     const token = req.cookies.jwt;
+    console.log(req.cookies.jwt);
     if(token){
         jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken)=>{
             if(err){

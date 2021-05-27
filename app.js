@@ -66,12 +66,6 @@ app.use('/uploads/profile_pict', express.static(path.join(__dirname, '/uploads/p
 app.use('/uploads/foto_toko', express.static(path.join(__dirname, '/uploads/foto_toko')));
 app.use('/uploads/foto_threads', express.static(path.join(__dirname, '/uploads/foto_threads')));
 app.use('/uploads/foto_artikel', express.static(path.join(__dirname, '/uploads/foto_artikel')));
-app.all('*', function(req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", 'http://localhost:3000');
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
 
 app.listen(port, () => {
   console.log("Listening to port 5000");
