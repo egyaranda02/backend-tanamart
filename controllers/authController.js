@@ -96,7 +96,7 @@ module.exports.getUser_get = async function (req, res) {
 module.exports.deleteUser_delete = async function (req, res) {
   try {
     await User.destroy({ where: { id_user: req.params.id_user } });
-    res.status(201).json("Barang berhasil dihapus");
+    res.status(201).json("User berhasil dihapus");
   } catch (err) {
     res.status(400).json(err);
   }
