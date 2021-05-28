@@ -1,6 +1,7 @@
 const Product = require("../models/Product");
 const Toko = require("../models/Toko");
 const OrderList = require("../models/OrderList");
+const imgbbUploader = require("imgbb-uploader");
 
 module.exports.getTokoDetails = async function (req, res) {
   try {
@@ -61,9 +62,7 @@ module.exports.getToko = async function (req, res) {
 };
 
 module.exports.addToko_post = async function (req, res) {
-  const foto_toko = "foto_toko/" + req.file.filename;
   const {
-    id_toko,
     id_user,
     nama_toko,
     alamat_toko,
@@ -71,7 +70,9 @@ module.exports.addToko_post = async function (req, res) {
     deskripsi_toko,
     rekening,
   } = req.body;
-  try {
+  imgbbUploader(proccess.env.IMGBB_API, "./uploads/profile_pict/"+req.file.filename)
+  .then(async(response)=>{
+    const foto_toko = response.display_url;
     const foundToko = await Toko.findOne({ where: { id_user } });
     if (!foundToko) {
         const isUnique = await Toko.findOne({where:{nama_toko: req.body.nama_toko}})
@@ -115,14 +116,15 @@ module.exports.addToko_post = async function (req, res) {
         res.status(400).json(error);
       }
     }
-  } catch (err) {
+  })
+  .catch((err)=>{
     if (err.name === "SequelizeValidationError") {
       return res.status(400).json({
         success: false,
         msg: err.errors.map((e) => e.message),
       });
     }
-  }
+  })
 };
 
 module.exports.getInvoice = async function (req, res) {

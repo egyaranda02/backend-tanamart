@@ -1,5 +1,6 @@
 const Threads = require('../models/Threads');
 const Comment = require('../models/Comment');
+const imgbbUploader = require("imgbb-uploader");
 
 module.exports.getThreadsDetails = async function (req, res) {
     try {
@@ -62,9 +63,10 @@ module.exports.addThreads_post = async function (req, res) {
         }
     }
     else{
-        const foto_threads = "foto_threads/"+req.file.filename;
         const { id_user, judul_threads, isi_threads } = req.body;
-        try {
+        imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_threads/"+req.file.filename)
+        .then(async(response)=>{
+            const foto_threads = response.display_url;
             const threads = await Threads.create({ 
                 id_user, 
                 judul_threads, 
@@ -72,14 +74,15 @@ module.exports.addThreads_post = async function (req, res) {
                 foto_threads 
             })
             res.status(201).json({ threads: threads.id_threads });
-        } catch (err) {
+        })  
+        .catch((err)=>{
             if (err.name === 'SequelizeValidationError') {
                 return res.status(400).json({
                     success: false,
                     msg: err.errors.map(e => e.message)
                 });
             }
-        }
+        })
     }
     
 };
@@ -105,9 +108,10 @@ module.exports.editThreads_post = async function (req, res) {
         }
     }
     else{
-        const foto_threads = "foto_threads/"+req.file.filename;
         const id_threads = req.body.id_threads;
-        try {
+        imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_threads/"+req.file.filename)
+        .then(async(response)=>{
+            const foto_threads = response.display_url;
             const threads = await Threads.findByPk(id_threads);
             try {
                 newJudul_threads = req.body.judul_threads;
@@ -122,9 +126,10 @@ module.exports.editThreads_post = async function (req, res) {
             } catch (error) {
                 res.status(400).json(error);
             }
-        } catch (err) {
+        })
+        .catch((err)=>{
             console.log(err);
-        }
+        })
     }
     
 };

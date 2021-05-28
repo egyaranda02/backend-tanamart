@@ -48,7 +48,7 @@ module.exports.getProductToko = async function (req, res) {
 
 module.exports.addProduct_post = async function (req, res) {
   const { id_toko, nama_barang, harga_barang, qty, deskripsi } = req.body;
-  imgbbUploader("dddfd0ddd034e79a9320e4c99bcabe7f", "./uploads/foto_barang/"+req.file.filename)
+  imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_barang/"+req.file.filename)
   .then(async(response)=>{
     const foto = response.display_url;
     const product = await Product.create({
@@ -72,9 +72,10 @@ module.exports.addProduct_post = async function (req, res) {
 
 module.exports.editProduct_post = async function (req, res) {
   const id_barang = req.body.id_barang;
-  const newFoto = "foto_barang/"+req.file.filename;
-  try {
+  imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_barang/"+req.file.filename)
+  .then(async(response)=>{
     const product = await Product.findByPk(id_barang);
+    const newFoto = response.display_url;
     try {
       const newNama_barang = req.body.nama_barang;
       const newHarga_barang = req.body.harga_barang;
@@ -107,9 +108,10 @@ module.exports.editProduct_post = async function (req, res) {
         });
       }
     }
-  } catch (err) {
+  }) 
+  .catch((err)=>{
     console.log(err);
-  }
+  });
 };
 
 module.exports.findProduct_get = async function(req, res){

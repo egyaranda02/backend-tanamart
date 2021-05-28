@@ -1,4 +1,5 @@
 const Biodata = require("../models/Biodata");
+const imgbbUploader = require("imgbb-uploader");
 
 
 module.exports.getBiodataDetails = async function (req, res) {
@@ -32,9 +33,10 @@ module.exports.getBiodata = async function (req, res) {
 };
 
 module.exports.addBiodata_post = async function (req, res) {
-  const profile_pict = "profile_pict/"+req.file.filename;
   const { id_user, nama, alamat, no_hp } = req.body;
-  try {
+  imgbbUploader(proccess.env.IMGBB_API, "./uploads/profile_pict/"+req.file.filename)
+  .then(async(response)=>{
+    const profile_pict = response.display_url;
     const foundBiodata = await Biodata.findOne({ where: { id_user } });
     if (!foundBiodata) {
       const biodata = await Biodata.create({
@@ -63,12 +65,13 @@ module.exports.addBiodata_post = async function (req, res) {
         res.status(400).json(error);
       }
     }
-  } catch (err) {
+  })
+  .catch((err)=>{
     if (err.name === "SequelizeValidationError") {
       return res.status(400).json({
         success: false,
         msg: err.errors.map((e) => e.message),
       });
     }
-  }
+  })
 };
