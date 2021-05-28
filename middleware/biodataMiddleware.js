@@ -1,4 +1,5 @@
 require("dotenv").config({ path: "../.env" });
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Biodata = require('../models/Biodata');
 
