@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const Product = require("../models/Product");
 const Cart = require("../models/Cart");
 const Toko = require("../models/Toko");
+const imgbbUploader = require("imgbb-uploader");
 
 module.exports.getProduct = async function(req, res){
   try{
