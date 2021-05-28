@@ -1,4 +1,5 @@
 require("dotenv").config({ path: "../.env" });
+const User = require('../models/User');
 const Biodata = require('../models/Biodata');
 
 const getBiodata = async function(req, res, next){
