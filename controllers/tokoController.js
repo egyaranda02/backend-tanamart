@@ -64,6 +64,7 @@ module.exports.getToko = async function (req, res) {
 
 module.exports.addToko_post = async function (req, res) {
   const {
+    id_toko,
     id_user,
     nama_toko,
     alamat_toko,
