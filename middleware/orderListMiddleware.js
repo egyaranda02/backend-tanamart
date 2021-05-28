@@ -23,10 +23,10 @@ const requireBiodata = (req, res, next)=>{
             }
         })
     }else{
-        res.status(200).json({
+        return res.status(200).json({
             errors:{
-                attribute: "Authentication",
-                message: "Harap login terlebih dahulu"
+                attribute: "Session Expired",
+                message: "Harap Login Ulang Session Expired"
             }
         });
     }

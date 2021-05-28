@@ -42,10 +42,10 @@ const checkAdmin = (req, res, next)=>{
             }
         });
     }else{
-        res.status(200).json({
+        return res.status(200).json({
             errors:{
                 attribute: "Authentication",
-                message: "Harap login terlebih dahulu!"
+                message: "Harap Login Ulang"
             }
         });
     }

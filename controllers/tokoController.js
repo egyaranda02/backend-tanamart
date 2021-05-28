@@ -79,7 +79,7 @@ module.exports.addToko_post = async function (req, res) {
     if (!foundToko) {
         const isUnique = await Toko.findOne({where:{nama_toko: req.body.nama_toko}})
     if(isUnique){
-      return res.status(400).json({
+      return res.status(200).json({
         errors:{
           attribute: "nama_toko",
           message: "Nama toko sudah digunakan!"

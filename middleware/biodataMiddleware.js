@@ -28,14 +28,22 @@ const checkUser= (req, res, next)=>{
                         console.log("Anda memiliki akses!")
                         next();
                     }else{
-                        res.status(400).json("Anda tidak memiliki akses!");
-                        return;
+                        res.status(200).json({
+                            errors:{
+                                attribute: "Authorization",
+                                message: "Anda tidak memiliki akses!"
+                            }
+                        });
                     }
             }
         })
     }else{
-        res.status(400).json("Harap login terlebih dahulu!")
-        return;
+        return res.status(200).json({
+            errors:{
+                attribute: "Authentication",
+                message: "Harap Login Ulang"
+            }
+        });
     }
 }
 
