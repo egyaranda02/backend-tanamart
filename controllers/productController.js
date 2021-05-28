@@ -46,9 +46,10 @@ module.exports.getProductToko = async function (req, res) {
 };
 
 module.exports.addProduct_post = async function (req, res) {
-  const foto = "foto_barang/"+req.file.filename;
   const { id_toko, nama_barang, harga_barang, qty, deskripsi } = req.body;
-  try {
+  imgbbUploader("dddfd0ddd034e79a9320e4c99bcabe7f", "./uploads/foto_barang/"+req.file.filename)
+  .then(async(response)=>{
+    const foto = response.display_url;
     const product = await Product.create({
       id_toko,
       nama_barang,
@@ -58,14 +59,14 @@ module.exports.addProduct_post = async function (req, res) {
       deskripsi
     });
     res.status(201).json({ barang: product.id_barang });
-  } catch (err) {
+  }) .catch ((err) =>{
     if (err.name === "SequelizeValidationError") {
       return res.status(400).json({
         success: false,
         msg: err.errors.map((e) => e.message),
       });
     }
-  }
+  })
 };
 
 module.exports.editProduct_post = async function (req, res) {
