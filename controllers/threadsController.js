@@ -65,7 +65,7 @@ module.exports.addThreads_post = async function (req, res) {
     }
     else{
         const { id_user, judul_threads, isi_threads } = req.body;
-        imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_threads/"+req.file.filename)
+        imgbbUploader(process.env.IMGBB_API, "./uploads/foto_threads/"+req.file.filename)
         .then(async(response)=>{
             const foto_threads = response.display_url;
             const threads = await Threads.create({ 
@@ -110,7 +110,7 @@ module.exports.editThreads_post = async function (req, res) {
     }
     else{
         const id_threads = req.body.id_threads;
-        imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_threads/"+req.file.filename)
+        imgbbUploader(process.env.IMGBB_API, "./uploads/foto_threads/"+req.file.filename)
         .then(async(response)=>{
             const foto_threads = response.display_url;
             const threads = await Threads.findByPk(id_threads);

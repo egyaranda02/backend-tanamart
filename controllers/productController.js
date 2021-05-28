@@ -49,7 +49,7 @@ module.exports.getProductToko = async function (req, res) {
 
 module.exports.addProduct_post = async function (req, res) {
   const { id_toko, nama_barang, harga_barang, qty, deskripsi } = req.body;
-  imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_barang/"+req.file.filename)
+  imgbbUploader(process.env.IMGBB_API, "./uploads/foto_barang/"+req.file.filename)
   .then(async(response)=>{
     const foto = response.display_url;
     const product = await Product.create({
@@ -73,7 +73,7 @@ module.exports.addProduct_post = async function (req, res) {
 
 module.exports.editProduct_post = async function (req, res) {
   const id_barang = req.body.id_barang;
-  imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_barang/"+req.file.filename)
+  imgbbUploader(process.env.IMGBB_API, "./uploads/foto_barang/"+req.file.filename)
   .then(async(response)=>{
     const product = await Product.findByPk(id_barang);
     const newFoto = response.display_url;

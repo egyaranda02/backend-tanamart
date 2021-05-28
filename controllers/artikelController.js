@@ -25,7 +25,7 @@ module.exports.getArtikel= async function(req, res){
 
 module.exports.addArtikel_post = async function(req, res){
     const {id_user, judul_artikel, isi_artikel} = req.body;
-    imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_artikel/"+req.file.filename)
+    imgbbUploader(process.env.IMGBB_API, "./uploads/foto_artikel/"+req.file.filename)
     .then(async(response)=>{
         const foto_artikel = response.display_url;
         const artikel = await Artikel.create({
@@ -49,7 +49,7 @@ module.exports.addArtikel_post = async function(req, res){
 module.exports.editArtikel_post = async function(req, res){
 
     const id_artikel = req.body.id_artikel;
-    imgbbUploader(proccess.env.IMGBB_API, "./uploads/foto_artikel/"+req.file.filename)
+    imgbbUploader(process.env.IMGBB_API, "./uploads/foto_artikel/"+req.file.filename)
     .then(async(response)=>{
         const foto_artikel = response.display_url;
         const artikel = await Artikel.findByPk(id_artikel);

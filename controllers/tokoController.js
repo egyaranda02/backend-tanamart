@@ -71,7 +71,7 @@ module.exports.addToko_post = async function (req, res) {
     deskripsi_toko,
     rekening,
   } = req.body;
-  imgbbUploader(proccess.env.IMGBB_API, "./uploads/profile_pict/"+req.file.filename)
+  imgbbUploader(process.env.IMGBB_API, "./uploads/profile_pict/"+req.file.filename)
   .then(async(response)=>{
     const foto_toko = response.display_url;
     const foundToko = await Toko.findOne({ where: { id_user } });

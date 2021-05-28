@@ -35,7 +35,7 @@ module.exports.getBiodata = async function (req, res) {
 
 module.exports.addBiodata_post = async function (req, res) {
   const { id_user, nama, alamat, no_hp } = req.body;
-  imgbbUploader(proccess.env.IMGBB_API, "./uploads/profile_pict/"+req.file.filename)
+  imgbbUploader(process.env.IMGBB_API, "./uploads/profile_pict/"+req.file.filename)
   .then(async(response)=>{
     const profile_pict = response.display_url;
     const foundBiodata = await Biodata.findOne({ where: { id_user } });
