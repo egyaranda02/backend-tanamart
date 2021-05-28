@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "../.env" });
 const Biodata = require("../models/Biodata");
 const imgbbUploader = require("imgbb-uploader");
 

@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "../.env" });
 const Threads = require('../models/Threads');
 const Comment = require('../models/Comment');
 const imgbbUploader = require("imgbb-uploader");

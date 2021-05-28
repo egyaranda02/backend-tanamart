@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "../.env" });
 const Product = require("../models/Product");
 const Toko = require("../models/Toko");
 const OrderList = require("../models/OrderList");

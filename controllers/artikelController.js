@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "../.env" });
 const User = require('../models/User');
 const Artikel = require('../models/Artikel');
 const imgbbUploader = require("imgbb-uploader");
