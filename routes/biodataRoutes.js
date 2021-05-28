@@ -31,7 +31,7 @@ const upload = multer({
 
 router.get('/biodata', biodataController.getBiodata);
 router.get('/biodataDetails/:id_bio', biodataController.getBiodataDetails);
-router.get('/biodataByUser/:id_user', biodataMiddleware.checkUser, biodataController.getBiodataByUser);
+router.get('/biodataByUser/:id_user', biodataController.getBiodataByUser);
 router.post('/addBiodata', upload.single('profile_pict'), biodataController.addBiodata_post);
 
 module.exports = router;
